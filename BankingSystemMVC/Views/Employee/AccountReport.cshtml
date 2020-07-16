@@ -1,0 +1,133 @@
+﻿@model BankingSystemMVC.ViewModels.AccountReportViewModel
+
+@{
+    ViewData["Title"] = "Извод на сметка";
+}
+
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <a asp-action="AccountReport" asp-route-emId="@ViewData["EmployeeId"]" asp-route-id="@ViewData["AccountId"]">
+                    <h1>Извод на сметка: @Model.BankAccount.AccountNumber</h1>
+                </a>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-sm-10">
+                                <form asp-action="AccountReport" asp-route-id="@ViewData["AccountId"]" method="get">
+                                    <p class="float-right">
+                                        Избери временски период:
+                                        од <input type="date" asp-for="StartDate" />
+                                        до <input type="date" asp-for="EndDate" />
+                                        <input type="submit" value="Филтрирај" />
+                                    </p>
+                                    <input type="hidden" name="emId" value="@ViewData["EmployeeId"]" hidden/>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <table id="example1" class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Transactions[0].TransDate)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Transactions[0].Amount)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Transactions[0].TotalBalance)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Transactions[0].Type)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Transactions[0].Receiver)
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model.Transactions != null)
+                                {
+                                    foreach (var item in Model.Transactions)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.TransDate)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Amount)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.TotalBalance)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Type)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Receiver)
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Transactions[0].TransDate)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Transactions[0].Amount)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Transactions[0].TotalBalance)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Transactions[0].Type)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Transactions[0].Receiver)
+                                    </th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+                <!-- /.card -->
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <a asp-action="AccountDetails" asp-route-id="@Model.BankAccount.Id" asp-route-emId="@ViewData["EmployeeId"]" class="btn btn-secondary">Назад</a>
+            <a onclick="window.print()" class="btn btn-default float-right"><i class="fas fa-print"></i>Генерирај PDF</a>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        $(document).ready(function () {
+            $("#example1").DataTable({
+            "responsive": true,
+            "autoWidth": false,
+            });
+        });
+    </script>
+}
+

@@ -1,0 +1,164 @@
+﻿@model BankingSystemMVC.ViewModels.BankAccountFilterViewModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <a asp-controller="BankAccounts" asp-action="Index">
+                    <h1>Листа на сметки</h1>
+                </a>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-sm-2">
+                                <h5>
+                                    <a asp-action="Create">Додади сметка</a>
+                                </h5>
+                            </div>
+                            <div class="col-sm-10">
+                            <form asp-controller="BankAccounts" asp-action="Index" method="get">
+                                <p class="float-right">
+                                    Избери
+                                    <select asp-for="BankAccountProduct" asp-items="Model.Products">
+                                        <option value="">Tип на продукт</option>
+                                    </select>
+                                    Службено лице:
+                                    <input type="text" asp-for="BankAccountEmployeeString"/>
+                                    <input type="submit" value="Филтрирај" />
+                                </p>
+                            </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <table id="example1" class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.BankAccounts[0].AccountNumber)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.BankAccounts[0].Customer)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.BankAccounts[0].AvailBalance)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.BankAccounts[0].OpenDate)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.BankAccounts[0].CloseDate)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.BankAccounts[0].Status)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.BankAccounts[0].Product)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.BankAccounts[0].Employee)
+                                    </th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.BankAccounts)
+                                {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.AccountNumber)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Customer.FullName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.AvailBalance)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.OpenDate)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.CloseDate)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Status)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Product.Id)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Employee.FullName)
+                                    </td>
+                                    <td>
+                                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                                        <a asp-action="Details" asp-route-id="@item.Id">Details</a>
+                                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                                    </td>
+                                </tr>
+                                }
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.BankAccounts[0].AccountNumber)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.BankAccounts[0].Customer)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.BankAccounts[0].AvailBalance)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.BankAccounts[0].OpenDate)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.BankAccounts[0].CloseDate)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.BankAccounts[0].Status)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.BankAccounts[0].Product)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.BankAccounts[0].Employee)
+                                    </th>
+                                    <th></th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+              <!-- /.card -->
+            </div>
+        </div>
+    </div>
+
+</section>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        $(document).ready(function () {
+            $("#example1").DataTable({
+            "responsive": true,
+            "autoWidth": false,
+            });
+        });
+    </script>
+}

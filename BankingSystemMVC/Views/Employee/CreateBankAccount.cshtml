@@ -1,0 +1,112 @@
+﻿@model BankingSystemMVC.Models.BankAccount
+
+@{
+    ViewData["Title"] = "Kреирај сметка";
+}
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Креирај сметка</h1>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <form asp-action="CreateBankAccount">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">Општи податоци</h3>
+
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label asp-for="AccountNumber" class="control-label"></label>
+                            <input asp-for="AccountNumber" class="form-control" />
+                            <span asp-validation-for="AccountNumber" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Customer" class="control-label"></label>
+                            <select asp-for="CustomerId" class="form-control" asp-items="ViewBag.CustomerId"> <option selected>Избери постоечки</option></select>
+                            <span asp-validation-for="CustomerId" class="text-danger"></span>
+                            <a asp-action="CreateCustomer" asp-route-id="@ViewData["emId"]">Креирај нов корисник</a>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="AvailBalance" class="control-label"></label>
+                            <input asp-for="AvailBalance" class="form-control" />
+                            <span asp-validation-for="AvailBalance" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="PendingBalance" class="control-label"></label>
+                            <input asp-for="PendingBalance" class="form-control" />
+                            <span asp-validation-for="PendingBalance" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.card -->
+            </div>
+            <div class="col-md-6">
+                <div class="card card-secondary">
+                    <div class="card-header">
+                        <h3 class="card-title">Тековни податоци</h3>
+
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label asp-for="OpenDate" class="control-label"></label>
+                            <input asp-for="OpenDate" class="form-control" />
+                            <span asp-validation-for="OpenDate" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="CloseDate" class="control-label"></label>
+                            <input asp-for="CloseDate" class="form-control" />
+                            <span asp-validation-for="CloseDate" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Status" class="control-label"></label>
+                            <input asp-for="Status" class="form-control" />
+                            <span asp-validation-for="Status" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Product" class="control-label"></label>
+                            <select asp-for="ProductId" class="form-control" asp-items="ViewBag.ProductId"></select>
+                            <span asp-validation-for="ProductId" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <input asp-for="EmployeeId" class="form-control" value="@ViewData["emId"]" hidden />
+                            <span asp-validation-for="EmployeeId" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <a asp-action="EmployeeClients" asp-route-id="@ViewData["emId"]" class="btn btn-secondary">Назад кон клиенти</a>
+                <input type="submit" value="Create" class="btn btn-success float-right">
+            </div>
+        </div>
+    </form>
+</section>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

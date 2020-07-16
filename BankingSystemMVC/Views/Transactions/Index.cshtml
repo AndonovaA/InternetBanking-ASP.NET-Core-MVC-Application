@@ -1,0 +1,132 @@
+﻿@model IEnumerable<BankingSystemMVC.Models.Transaction>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <a asp-controller="Transactions" asp-action="Index">
+                <h1>Листа на сите трансакции</h1>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header"></div>
+                    <div class="card-body">
+                        <table id="example1" class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Account)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Amount)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.TransDate)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.TotalBalance)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Type)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Receiver)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Employee)
+                                    </th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Account.AccountNumber)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Amount)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.TransDate)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.TotalBalance)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Type)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Receiver)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Employee.FullName) 
+                                    </td>
+                                    <td>
+                                        <a asp-action="Details" asp-route-id="@item.Id">Details</a><br/>
+                                    </td>
+                                </tr>
+                                }
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Account)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Amount)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.TransDate)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.TotalBalance)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Type)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Receiver)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Employee)
+                                    </th>
+                                    <th></th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+                <!-- /.card -->
+            </div>
+        </div>
+    </div>
+
+</section>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        $(document).ready(function () {
+            $("#example1").DataTable({
+            "responsive": true,
+            "autoWidth": false,
+            });
+        });
+    </script>
+}

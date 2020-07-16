@@ -1,0 +1,91 @@
+﻿@model IEnumerable<AppUser>
+
+@{
+    ViewData["Title"] = "Сите корисници";
+}
+
+<h2>Сите корисници</h2>
+
+<div>
+    <h5>
+        <a asp-controller="Admin" asp-action="CreateUser">Регистрирај корисник</a>
+    </h5>
+</div>
+
+<div>
+    <form asp-controller="Admin" asp-action="Index" method="get">
+        <p class="float-right">
+            <input name="who" value="1" hidden />
+            <button class="btn btn-sm btn-info" type="submit"> Сите </button>
+        </p>
+    </form>
+    <form asp-controller="Admin" asp-action="Index" method="get">
+        <p class="float-right">
+            <input name="who" value="2" hidden />
+            <button class="btn btn-sm btn-info" type="submit">Вработени</button>
+        </p>
+    </form>
+    <form asp-controller="Admin" asp-action="Index" method="get">
+        <p class="float-right">
+            <input name="who" value="3" hidden />
+            <button class="btn btn-sm btn-info" type="submit">Клиенти</button>
+        </p>
+    </form>
+</div>
+
+<br />
+<table class="table table-sm table-bordered">
+    <tr>
+        <th>ID на корисник</th>
+        <th>Тел. број</th>
+        <th>Email адреса</th>
+        <th>Улога</th>
+        <th>ID клиент/вработен</th>
+        <th></th>
+    </tr>
+    @foreach (AppUser user in Model)
+    {
+        <tr>
+            <td>@user.Id</td>
+            <td>@user.PhoneNumber</td>
+            <td>@user.Email</td>
+            <td>@user.Role</td>
+            @{
+                if (user.CustomerId != null)
+                {
+                    <td>@(user.CustomerId)</td>
+                }
+                else if (user.EmployeeId != null)
+                {
+                    <td>@(user.EmployeeId)</td>
+                }
+                else
+                {
+                    <td>/</td>
+                }
+            }
+            <td>
+                @{
+                    if (user.EmployeeId != null)
+                    {
+                        <a asp-controller="Admin" asp-action="EmployeeProfile" asp-route-employeeId="@user.EmployeeId">Промени</a>
+                    }
+                    else if (user.CustomerId != null)
+                    {
+                        <a asp-controller="Admin" asp-action="CustomerProfile" asp-route-customerId="@user.CustomerId">Промени</a>
+                    }
+                }
+                
+                @{
+                    if (user.EmployeeId != null || user.CustomerId != null)
+                    {
+                        <form asp-action="Delete" asp-route-id="@user.Id" method="post">
+                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Корисникот @(user.Id) ќе биде избришан!?');"> Избриши </button>
+                        </form>
+                    }
+                }
+            </td>
+        </tr>
+    }
+</table>
+

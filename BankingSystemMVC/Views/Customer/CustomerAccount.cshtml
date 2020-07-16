@@ -1,0 +1,102 @@
+﻿@model BankingSystemMVC.Models.BankAccount
+
+@{
+    ViewData["Title"] = "Детали за сметка";
+}
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Детали за сметка - @Model.AccountNumber </h1>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="content">
+    <!-- Default box -->
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-12 col-md-12 align-content-center"> <!--smeni class--> 
+                    <div class="row">
+                        <div class="col-12 col-sm-4">
+                            <div class="info-box bg-light">
+                                <div class="info-box-content">
+                                    <span class="info-box-text text-center text-muted"> @Html.DisplayNameFor(model => model.AvailBalance) </span>
+                                    <span class="info-box-number text-center text-muted mb-0"> @Html.DisplayFor(model => model.AvailBalance) </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-4">
+                            <div class="info-box bg-light">
+                                <div class="info-box-content">
+                                    <span class="info-box-text text-center text-muted">@Html.DisplayNameFor(model => model.PendingBalance)</span>
+                                    <span class="info-box-number text-center text-muted mb-0"> @Html.DisplayFor(model => model.PendingBalance)</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-4">
+                            <div class="info-box bg-light">
+                                <div class="info-box-content">
+                                    <span class="info-box-text text-center text-muted"> @Html.DisplayNameFor(model => model.Status)</span>
+                                    <span class="info-box-number text-center text-muted mb-0"> @Html.DisplayFor(model => model.Status) </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card card-primary">
+                                <div class="card-header">
+                                    <h3 class="card-title">Општи податоци за сметка: <b>@Html.DisplayFor(model => model.AccountNumber)</b></h3>
+                                    <div class="card-tools">
+                                        <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                                            <i class="fas fa-minus"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <dl class="row">
+                                        <dt class="col-sm-6">
+                                            @Html.DisplayNameFor(model => model.Customer)
+                                        </dt>
+                                        <dd class="col-sm-6">
+                                            @Html.DisplayFor(model => model.Customer.FullName)
+                                        </dd>
+                                        <dt class="col-sm-6">
+                                            @Html.DisplayNameFor(model => model.OpenDate)
+                                        </dt>
+                                        <dd class="col-sm-6">
+                                            @Html.DisplayFor(model => model.OpenDate)
+                                        </dd>
+                                        <dt class="col-sm-6">
+                                            @Html.DisplayNameFor(model => model.CloseDate)
+                                        </dt>
+                                        <dd class="col-sm-6">
+                                            @Html.DisplayFor(model => model.CloseDate)
+                                        </dd>
+                                        <dt class="col-sm-6">
+                                            @Html.DisplayNameFor(model => model.Product)
+                                        </dt>
+                                        <dd class="col-sm-6">
+                                            @Html.DisplayFor(model => model.Product.Name)
+                                        </dd>
+                                    </dl>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <a asp-action="CustomerDetails" asp-route-id="@Model.CustomerId" class="btn btn-secondary">Назад кон сметки</a>
+            <a asp-action="AccountReport" asp-route-id="@Model.Id" class="btn btn-success float-right">Извод на сметка</a>
+        </div>
+    </div>
+</section>

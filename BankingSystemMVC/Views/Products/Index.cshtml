@@ -1,0 +1,123 @@
+﻿@model BankingSystemMVC.ViewModels.ProductFilterViewModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <a asp-controller="Products" asp-action="Index">
+                    <h1>Листа на продукти(категории)</h1>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="row">
+                        <div class="col-sm-6">
+                            <h5>
+                                <a asp-action="Create">Додади продукт</a>
+                            </h5>
+                        </div>
+                        <div class="col-sm-6">
+                            <form asp-controller="Products" asp-action="Index" method="get">
+                                <p class="float-right">
+                                    Избери
+                                    <select asp-for="ProductType" asp-items="Model.Types">
+                                        <option value="">Tип на продукт</option>
+                                    </select>
+                                    <input type="submit" value="Филтрирај" />
+                                </p>
+                            </form>
+                        </div>
+                        </div>
+                    </div>
+                        <div class="card-body">
+                            <table id="example1" class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.Products[0].Id)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.Products[0].Name)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.Products[0].Type)
+                                        </th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.Products)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Id)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Name)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Type)
+                                            </td>
+                                            <td class="project-actions text-center">
+                                                <a class="btn btn-primary btn-sm" asp-action="Details" asp-route-id="@item.Id">
+                                                    <i class="fas fa-folder"></i>Details
+                                                </a>
+                                                <a class="btn btn-info btn-sm" asp-action="Edit" asp-route-id="@item.Id">
+                                                    <i class="fas fa-pencil-alt"></i>Edit
+                                                </a>
+                                                <a class="btn btn-danger btn-sm" asp-action="Delete" asp-route-id="@item.Id">
+                                                    <i class="fas fa-trash"></i>Delete
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.Products[0].Id)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.Products[0].Name)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.Products[0].Type)
+                                        </th>
+                                        <th></th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                <!-- /.card -->
+            </div>
+        </div>
+    </div>
+
+</section>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        $(document).ready(function () {
+            $("#example1").DataTable({
+            "responsive": true,
+            "autoWidth": false,
+            });
+        });
+    </script>
+}

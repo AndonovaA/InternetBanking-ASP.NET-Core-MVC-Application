@@ -1,0 +1,155 @@
+﻿@model IEnumerable<BankingSystemMVC.Models.Customer>
+
+@{
+    ViewData["Title"] = "Клиенти";
+}
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                    <h1>Листа на клиенти</h1>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="row"> 
+                            <div class="col-sm-6">
+                                <h5>
+                                    <a asp-action="CreateBankAccount" asp-route-emId="@ViewData["EmployeeId"]">Креирај трансакциска сметка</a>
+                                </h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <table id="example1" class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.FirstName)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.LastName)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.BirthDate)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Address)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.City)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.State)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Identification) 
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Accounts)
+                                    </th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.FirstName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.LastName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.BirthDate)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Address)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.City)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.State)
+                                    </td>
+                                    <td>
+                                        <a href="@Url.Content("~/identification/" + item.Identification)" target="_blank" class="btn-link text-secondary">
+                                            @if (item.Identification != null)
+                                                {<i class="far fa-fw fa-file-word"></i>}
+                                        </a>
+                                    </td>
+                                    <td>
+                                        @foreach (var i in item.Accounts)
+                                        {<a asp-action="AccountDetails" asp-route-id="@i.Id" asp-route-emId="@ViewData["EmployeeId"]">
+                                                @Html.DisplayFor(modelItem => i.AccountNumber)
+                                            </a>
+                                        }
+                                    </td>
+                                    <td>
+                                        <a asp-action="EditCustomer" asp-route-id="@item.Id" asp-route-emId="@ViewData["EmployeeId"]">Edit</a><br />
+                                        <a asp-controller="Employee" asp-action="CustomerProfile" asp-route-customerId="@item.Id" asp-route-emId="@ViewData["EmployeeId"]">Profile</a>
+                                    </td>
+                                </tr>
+                                }
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.FirstName)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.LastName)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.BirthDate)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Address)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.City)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.State)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Identification) 
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Accounts)
+                                    </th>
+                                    <th></th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+                <!-- /.card -->
+            </div>
+        </div>
+    </div>
+
+</section>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        $(document).ready(function () {
+            $("#example1").DataTable({
+                "responsive": true,
+                "autoWidth": false,
+            });
+        });
+    </script>
+}

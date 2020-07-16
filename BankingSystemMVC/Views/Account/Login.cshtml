@@ -1,0 +1,45 @@
+﻿@model BankingSystemMVC.ViewModels.LoginViewModel
+
+@{
+    ViewData["Title"] = "Најава";
+}
+
+    <section class="hold-transition login-page">
+        <div class="login-box">
+            <div class="card">
+                <div class="card-body login-card-body">
+                    <p class="login-box-msg">Најава</p>
+                    <div class="text-danger" asp-validation-summary="All"></div>
+                    <form asp-action="Login" method="post">
+                        <input type="hidden" asp-for="ReturnUrl" />
+                        <div class="input-group mb-3">
+                            <input asp-for="Email" class="form-control" placeholder="Email адреса" />
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <span class="fas fa-envelope"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="input-group mb-3">
+                            <input asp-for="Password" class="form-control" type="password" data-val="true" placeholder="Лозинка" />
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <span class="fas fa-lock"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-4">
+                                <button type="submit" class="btn btn-primary btn-block">Најави се</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <!-- /.login-card-body -->
+            </div>
+        </div>
+    </section>
+
+@section Scripts {
+   @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

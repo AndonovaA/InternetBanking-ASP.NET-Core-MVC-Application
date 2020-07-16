@@ -1,0 +1,136 @@
+﻿@model BankingSystemMVC.ViewModels.EmployeeFilterViewModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <a asp-controller="Employees" asp-action="Index">
+                    <h1>Листа на вработени</h1>
+                </a>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <h5>
+                                    <a asp-action="Create">Додади вработен</a>
+                                </h5>
+                            </div>
+                            <div class="col-sm-6">
+                                <form asp-controller="Employees" asp-action="Index" method="get">
+                                    <p class="float-right">
+                                        Избери
+                                        <select asp-for="EmployeeTitle" asp-items="Model.Titles">
+                                            <option value="">титула</option>
+                                        </select>
+                                        <input type="submit" value="Филтрирај" />
+                                    </p>
+                                </form>
+                            </div>
+                            </div>
+                        </div>
+                    <div class="card-body">
+                        <table id="example1" class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Employees[0].FirstName)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Employees[0].LastName)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Employees[0].StartDate)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Employees[0].EndDate)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Employees[0].Title)
+                                    </th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.Employees)
+                                {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.FirstName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.LastName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.StartDate)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.EndDate)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Title)
+                                    </td>
+                                    <td>
+                                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a><br />
+                                        <a asp-action="Details" asp-route-id="@item.Id">Details</a><br />
+                                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a><br />
+                                        <a asp-controller="Admin" asp-action="EmployeeProfile" asp-route-employeeId="@item.Id">Profile</a>
+                                    </td>
+                                </tr>
+                                }
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Employees[0].FirstName)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Employees[0].LastName)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Employees[0].StartDate)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Employees[0].EndDate)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Employees[0].Title)
+                                    </th>
+                                    <th></th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+                <!-- /.card -->
+            </div>
+        </div>
+    </div>
+
+</section>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        $(document).ready(function () {
+            $("#example1").DataTable({
+            "responsive": true,
+            "autoWidth": false,
+            });
+        });
+    </script>
+}

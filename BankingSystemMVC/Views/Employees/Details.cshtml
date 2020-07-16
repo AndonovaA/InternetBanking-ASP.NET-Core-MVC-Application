@@ -1,0 +1,90 @@
+﻿@model BankingSystemMVC.Models.Employee
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Детали за вработен</h1>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="content">
+    <div class="row ">
+        <div class="col-12">
+            <div class="card card-primary">
+                <div class="card-header">
+                    <h3 class="card-title">Податоци</h3>
+                    <div class="card-tools">
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                            <i class="fas fa-minus"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-8">
+                            <dl class="row">
+                                <dt class="col-6">
+                                    @Html.DisplayNameFor(model => model.FirstName)
+                                </dt>
+                                <dd class="col-6">
+                                    @Html.DisplayFor(model => model.FirstName)
+                                </dd>
+                                <dt class="col-6">
+                                    @Html.DisplayNameFor(model => model.LastName)
+                                </dt>
+                                <dd class="col-6">
+                                    @Html.DisplayFor(model => model.LastName)
+                                </dd>
+                                <dt class="col-6">
+                                    @Html.DisplayNameFor(model => model.StartDate)
+                                </dt>
+                                <dd class="col-6">
+                                    @Html.DisplayFor(model => model.StartDate)
+                                </dd>
+                                <dt class="col-6">
+                                    @Html.DisplayNameFor(model => model.EndDate)
+                                </dt>
+                                <dd class="col-6">
+                                    @Html.DisplayFor(model => model.EndDate)
+                                </dd>
+                                <dt class="col-6">
+                                    @Html.DisplayNameFor(model => model.Title)
+                                </dt>
+                                <dd class="col-6">
+                                    @Html.DisplayFor(model => model.Title)
+                                </dd>
+                            </dl>
+                        </div>
+                        <div class="col-4">
+                            <div class="row mt-1 text-bold text-center">
+                                @Html.DisplayNameFor(model => model.Signature)
+                            </div>
+                            <div class="row mt-3">
+                                @{ if (Model.Signature != null)
+                                   {
+                                        <img src="~/identification/@Model.Signature" asp-append-version="true" class="w-50 h-50"/>
+                                   }
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <a asp-action="Index" class="btn btn-secondary">Назад кон вработени</a>
+            <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-success float-right">Промени детали за вработен</a>
+        </div>
+    </div>
+</section>

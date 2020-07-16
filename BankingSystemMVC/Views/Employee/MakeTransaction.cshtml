@@ -1,0 +1,77 @@
+﻿@model BankingSystemMVC.Models.Transaction
+
+@{
+    ViewData["Title"] = "Направи трансакција";
+}
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Направи трансакција</h1>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <form asp-action="MakeTransaction">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="Id" />
+        <div class="row">
+            <div class="col-12">
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">Податоци</h3>
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label asp-for="Amount" class="control-label"></label>
+                            <input asp-for="Amount" class="form-control" />
+                            <span asp-validation-for="Amount" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="TransDate" class="control-label"></label>
+                            <input asp-for="TransDate" class="form-control" />
+                            <span asp-validation-for="TransDate" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Type" class="control-label"></label>
+                            <select asp-for="Type" class="form-control" asp-items="ViewBag.Type"></select>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Receiver" class="control-label"></label>
+                            <input asp-for="Receiver" class="form-control" />
+                            <span asp-validation-for="Receiver" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Account" class="control-label"></label>
+                            <input name="AccountNo" class="form-control" /> 
+                        </div>
+                        <div class="form-group">
+                            <input asp-for="EmployeeId" class="form-control" value="@ViewData["EmployeeId"]" hidden/> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <input type="submit" value="Потврди" class="btn btn-success float-right"> 
+            </div>
+        </div>
+
+    </form>
+</section>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
